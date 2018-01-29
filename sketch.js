@@ -8,6 +8,7 @@ var y = [];
 var tx, ty, ti = -1;
 
 var degree = 4;
+var instruction = "Enter Four Control Points and Drag them to form the curve."
 
 function fact(x) {
    if(x==0) {
@@ -21,7 +22,7 @@ function C (n, r) {
 }
 
 function setup() {
-  createCanvas(600,400);
+  createCanvas(windowWidth,windowHeight);
   stroke(255);
 }
 
@@ -31,51 +32,34 @@ function draw() {
 
   background(51);
 
+  fill(250);
+  noStroke();
+  textFont('monospace');
+  textSize(25);
+  text("Beizier Curve", 15, 40);
+  textSize(20);
+  text(instruction, 15, windowHeight - 30);
+  fill(100);
+  textSize(15);
+  text("Author : Kaustubh Olpadkar", windowWidth - 270, 40);
+  noFill();
+  noStroke();
+
   for (var i = 0; i < x.length; i++) {
+    fill(250);
     ellipse(x[i], y[i], 20, 20);
   }
 
-
   if (count < degree) {
-
   } else {
-
-    midpoint(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3], 9);
-
-/*
-    for (var j = 0; j < 1; j += 0.0001) {
-
-      if (degree == 4) {
-        yy = y[3] * j * j * j + 3 * y[2] * j * j * (1 - j) + 3 * y[1] * j * (1 - j) * (1 - j) + y[0] * (1 - j) * (1 - j) * (1 - j);
-        xx = x[3] * j * j * j + 3 * x[2] * j * j * (1 - j) + 3 * x[1] * j * (1 - j) * (1 - j) + x[0] * (1 - j) * (1 - j) * (1 - j);
-      }
-      else if (degree == 5) {
-        yy = y[4] * j * j * j * j + 4 * y[3] * j * j * j * (1 - j) + 6 * y[2] * j * j * (1 - j) * (1 - j) + 4 * y[1] * j * (1 - j) * (1 - j) * (1 - j) + y[0] * (1 - j) * (1 - j) * (1 - j) * (1 - j);
-        xx = x[4] * j * j * j * j + 4 * x[3] * j * j * j * (1 - j) + 6 * x[2] * j * j * (1 - j) * (1 - j) + 4 * x[1] * j * (1 - j) * (1 - j) * (1 - j) + x[0] * (1 - j) * (1 - j) * (1 - j) * (1 - j);
-      }
-/*
-      xx = 0;
-      yy = 0;
-
-      for (var k = 0; k < degree + 1; k++) {
-        xx += parseInt(C(degree, k) * parseFloat(Math.pow(1 - j, degree - k)) * parseFloat(Math.pow(j, k)) * x[k]);
-        yy += parseInt(C(degree, k) * parseFloat(Math.pow(1 - j, degree - k)) * parseFloat(Math.pow(j, k)) * y[k]);
-      }
-//
-      // console.log(xx, yy);
-      point(xx, yy);
-
-
-    }
-*/
-
+  midpoint(x[0], y[0], x[1], y[1], x[2], y[2], x[3], y[3], 9);
   }
 
-
+  noFill();
 }
 
 function mouseClicked(){
-  if (count < degree && mouseX < 600 && mouseY < 400) {
+  if (count < degree && mouseX < width && mouseY < height) {
     x[count] = mouseX;
     y[count] = mouseY;
     count++;
@@ -102,10 +86,12 @@ function mouseDragged () {
 function midpoint (x1, y1, x2, y2, x3, y3, x4, y4, n) {
 
   if (n == 0) {
-
+    fill(250);
+    stroke(250);
     line(x1, y1, x2, y2);
     line(x2, y2, x3, y3);
     line(x3, y3, x4, y4);
+    noStroke();
     return;
   }
 
